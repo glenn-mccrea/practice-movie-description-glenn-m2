@@ -28,12 +28,7 @@ public class MovieController {
     public Movie addItem(@RequestBody Movie movie) {
         return movieRepository.save(movie);
     }
-    @PutMapping("/{id}")
-    public Movie updateItem(@PathVariable int id, @RequestBody Movie
-            movie) {
-        movie.setId(id);
-        return movieRepository.save(movie);
-    }
+
     @DeleteMapping("/{id}")
     public void deleteItem(@PathVariable int id) {
         movieRepository.deleteById(id);

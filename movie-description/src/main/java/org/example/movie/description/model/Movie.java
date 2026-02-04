@@ -9,24 +9,26 @@ import jakarta.persistence.Id;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String title;
-    private int rating;
+    private Integer rating;
     private String description;
 
+    public Movie() {
+    }
 
-    public Movie(int id, String title, int rating, String description){
-       this.id = id;
+    public Movie(Integer id, String title, Integer rating, String description){
+        this.id = id;
         this.title = title;
         this.rating = rating;
         this.description = description;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -38,11 +40,11 @@ public class Movie {
         this.title = title;
     }
 
-    public int getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 

@@ -1,10 +1,10 @@
 package org.example.movie.description.controller;
 
 import org.apache.http.HttpException;
-import org.example.movie.description.MovieDescriptionService;
-import org.example.movie.description.MovieDirectorService;
 import org.example.movie.description.model.Movie;
+import org.example.movie.description.model.MovieInfo;
 import org.example.movie.description.repositories.MovieRepository;
+import org.example.movie.description.service.MovieInfoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -15,14 +15,12 @@ import java.util.List;
 @RequestMapping("/movies")
 public class MovieController {
     private final MovieRepository movieRepository;
-    private final MovieDescriptionService descriptionService;
-    private final MovieDirectorService directorService;
+ private final MovieInfoService movieInfoService;
 
 
-    public MovieController(MovieRepository movieRepository) {
+    public MovieController(MovieRepository movieRepository, MovieInfoService movieInfoService) {
         this.movieRepository = movieRepository;
-        this.descriptionService = new MovieDescriptionService();
-        this.directorService = new MovieDirectorService();
+        this.movieInfoService = new MovieInfoService();
     }
 
     @GetMapping
@@ -31,12 +29,13 @@ public class MovieController {
     }
 
     @PostMapping
-    public Movie addItem(@RequestBody Movie movie) throws HttpException, IOException {
-        String generatedDescription = descriptionService.generateDescription(movie.getTitle());
-        movie.setDescription(generatedDescription);
 
-        String generatedDirector = directorService.generateDirector(movie.getTitle());
-        movie.setDirector(generatedDirector);
+        public Movie addItem(@RequestBody Movie movie) throws HttpException, IOException {
+
+            MovieInfo movieInfo = movieInfoService.getMovieInfo(movie.getTitle());
+
+           movie.setDescription(movieInfo.getDescription());
+            movie.setDirector(movieInfo.getDirector());
 
         return movieRepository.save(movie);
     }

@@ -1,4 +1,4 @@
-package org.example.movie.description;
+package org.example.movie.description.archivedThings;
 
 import com.google.genai.Client;
 import com.google.genai.types.GenerateContentResponse;

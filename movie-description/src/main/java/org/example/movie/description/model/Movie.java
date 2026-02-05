@@ -13,15 +13,18 @@ public class Movie {
     private String title;
     private Integer rating;
     private String description;
+    private String director;
+
 
     public Movie() {
     }
 
-    public Movie(Integer id, String title, Integer rating, String description){
+    public Movie(Integer id, String title, Integer rating, String description, String director){
         this.id = id;
         this.title = title;
         this.rating = rating;
         this.description = description;
+        this.director = director;
     }
 
     public Integer getId() {
@@ -54,5 +57,13 @@ public class Movie {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
     }
 }

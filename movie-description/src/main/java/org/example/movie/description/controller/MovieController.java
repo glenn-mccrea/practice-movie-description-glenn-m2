@@ -2,6 +2,7 @@ package org.example.movie.description.controller;
 
 import org.apache.http.HttpException;
 import org.example.movie.description.MovieDescriptionService;
+import org.example.movie.description.MovieDirectorService;
 import org.example.movie.description.model.Movie;
 import org.example.movie.description.repositories.MovieRepository;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +15,16 @@ import java.util.List;
 @RequestMapping("/movies")
 public class MovieController {
     private final MovieRepository movieRepository;
-    private MovieDescriptionService descriptionService;
+    private final MovieDescriptionService descriptionService;
+    private final MovieDirectorService directorService;
+
 
     public MovieController(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
         this.descriptionService = new MovieDescriptionService();
+        this.directorService = new MovieDirectorService();
     }
+
     @GetMapping
     public List<Movie> getAllItems() {
         return movieRepository.findAll();
@@ -29,6 +34,10 @@ public class MovieController {
     public Movie addItem(@RequestBody Movie movie) throws HttpException, IOException {
         String generatedDescription = descriptionService.generateDescription(movie.getTitle());
         movie.setDescription(generatedDescription);
+
+        String generatedDirector = directorService.generateDirector(movie.getTitle());
+        movie.setDirector(generatedDirector);
+
         return movieRepository.save(movie);
     }
 

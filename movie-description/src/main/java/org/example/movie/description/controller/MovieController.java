@@ -36,6 +36,7 @@ public class MovieController {
 
            movie.setDescription(movieInfo.getDescription());
             movie.setDirector(movieInfo.getDirector());
+            movie.setYear(movie.getYear());
 
         return movieRepository.save(movie);
     }

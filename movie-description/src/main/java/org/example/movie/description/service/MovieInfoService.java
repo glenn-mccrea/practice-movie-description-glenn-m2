@@ -19,7 +19,8 @@ public class MovieInfoService {
     public MovieInfo getMovieInfo(String movieTitle) throws HttpException, IOException {
         String prompt = "For the movie '" + movieTitle + "', provide EXACTLY this format:\n" +
                 "DIRECTOR: [just the director's name]\n" +
-                "DESCRIPTION: [one sentence description]\n\n" +
+                "DESCRIPTION: [one sentence description]\n" +
+                "YEAR: [year of film release]\n\n" +
                 "Do not include anything else.";
 
         GenerateContentResponse response = client.models.generateContent(
@@ -35,6 +36,7 @@ public class MovieInfoService {
     private MovieInfo parseResponse(String response) {
         String director = "";
         String description = "";
+        String year = "";
 
         String[] lines = response.split("\n");
 
@@ -47,8 +49,12 @@ public class MovieInfoService {
             else if (line.startsWith("DESCRIPTION:")) {
                 description = line.replace("DESCRIPTION:", "").trim();
             }
+
+            else if (line.startsWith("YEAR:")) {
+                year = line.replace("YEAR:", "").trim();
+            }
         }
 
-        return new MovieInfo(director, description);
+        return new MovieInfo(director, description, year);
     }
 }

@@ -14,6 +14,7 @@ public class Movie {
     private Integer rating;
     private String description;
     private String director;
+    private String year;
 
 
     public Movie() {
@@ -25,6 +26,7 @@ public class Movie {
         this.rating = rating;
         this.description = description;
         this.director = director;
+        this.year = year;
     }
 
     public Integer getId() {
@@ -65,5 +67,13 @@ public class Movie {
 
     public void setDirector(String director) {
         this.director = director;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 }
